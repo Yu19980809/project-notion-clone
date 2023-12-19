@@ -3,14 +3,24 @@
 import Image from 'next/image'
 import { PlusCircle } from 'lucide-react'
 import { useUser } from '@clerk/clerk-react'
+import { useMutation } from 'convex/react'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
+import { api } from '../../../../../convex/_generated/api'
 
 const DocumentsPage = () => {
   const {user} = useUser()
+  const create = useMutation(api.documents.create)
 
   const handleCreate = () => {
-    // const promise = create({ title: 'Untitled' })
+    const promise = create({ title: 'Untitled' })
+
+    toast.promise(promise, {
+      loading: 'Creating a new note...',
+      success: 'New note created!',
+      error: 'Failed to create a new note.'
+    })
   }
 
   return (
