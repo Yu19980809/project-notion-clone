@@ -30,7 +30,7 @@ const Header = () => {
       )}
 
       {!isAuthenticated && !isLoading && (
-        <SignInButton>
+        <SignInButton mode="modal">
           <Button>
             Get Jotion free
             <ArrowRight className="w-4 h-4 ml-2" />
