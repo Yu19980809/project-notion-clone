@@ -19,7 +19,7 @@ const SettingsModal = () => {
     >
       <DialogContent>
         <DialogHeader className="pb-3 border-b">
-          <h2 className="font-medium text-lg">My settinggs</h2>
+          <h2 className="font-medium text-lg">My settings</h2>
         </DialogHeader>
 
         <div className="flex justify-between items-center">
