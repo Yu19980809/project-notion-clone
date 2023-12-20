@@ -4,6 +4,7 @@ import { Toaster } from 'sonner'
 
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ConvexClentProvider } from '@/components/providers/convex-provider'
+import { ModalProvider } from '@/components/providers/modal-provider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -43,8 +44,9 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="jotion-theme-2"
           >
-            {children}
             <Toaster position="top-center" />
+            <ModalProvider />
+            {children}
           </ThemeProvider>
         </ConvexClentProvider>
       </body>

@@ -26,6 +26,8 @@ import DocumentList from './document-list'
 import TrashBox from './trash-box'
 import { cn } from '@/lib/utils'
 import { api } from '../../../../convex/_generated/api'
+import { useSearch } from '@/hooks/use-search'
+import { useSettings } from '@/hooks/use-settings'
 import {
   Popover,
   PopoverContent,
@@ -33,6 +35,8 @@ import {
 } from '@/components/ui/popover'
 
 const Navigation = () => {
+  const search = useSearch()
+  const settings = useSettings()
   const pathname = usePathname()
   const isMobile = useMediaQuery('(max-width: 768px)')
   const create = useMutation(api.documents.create)
@@ -157,14 +161,14 @@ const Navigation = () => {
           <UserItem />
 
           <Item
-            onClick={() => {}}
+            onClick={search.onOpen}
             label="Search"
             icon={Search}
             isSearch
           />
 
           <Item
-            onClick={() => {}}
+            onClick={settings.onOpen}
             label="Settings"
             icon={Settings}
           />
