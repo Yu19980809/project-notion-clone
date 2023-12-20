@@ -6,7 +6,9 @@ import { useMutation } from 'convex/react'
 
 import SingleImageDropzone from '../single-image-dropzone'
 import { useCoverImage } from '@/hooks/use-cover-image'
+import { useEdgeStore } from '@/lib/edgestore'
 import { api } from '../../../convex/_generated/api'
+import { Id } from '../../../convex/_generated/dataModel'
 import {
   Dialog,
   DialogContent,
@@ -16,12 +18,37 @@ import {
 const CoverImageModal = () => {
   const [file, setFile] = useState<File>()
   const [isSubmitting, setIsSubmitting] = useState(false)
-
   const params = useParams()
+  const {edgestore} = useEdgeStore()
+  const {url, isOpen, onClose} = useCoverImage()
   const update = useMutation(api.documents.update)
-  const {isOpen, onClose} = useCoverImage()
 
-  const handleChange = () => {}
+  const handleClose = () => {
+    setFile(undefined)
+    setIsSubmitting(false)
+    onClose()
+  }
+
+  const handleChange = async (file?: File) => {
+    if (file) {
+      setIsSubmitting(true)
+      setFile(file)
+
+      const res = await edgestore.publicFiles.upload({
+        file,
+        options: {
+          replaceTargetUrl: url
+        }
+      })
+
+      await update({
+        id: params.documentId as Id<'documents'>,
+        coverImage: res.url
+      })
+
+      handleClose()
+    }
+  }
 
   return (
     <Dialog
