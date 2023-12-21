@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useMutation } from 'convex/react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
@@ -14,7 +13,6 @@ import { Button } from './ui/button'
 import { ImageIcon, X } from 'lucide-react'
 import { Skeleton } from './ui/skeleton'
 import ConfirmModal from './modals/confirm-modal'
-import { Spinner } from './spinner'
 
 interface CoverProps {
   url?: string
@@ -25,8 +23,6 @@ const Cover = ({
   url,
   preview
 }: CoverProps) => {
-  // const [isChanging, setIsChanging] = useState(false)
-  // const [isRemoving, setIsRemoving] = useState(false)
   const {edgestore} = useEdgeStore()
   const params = useParams()
   const {onReplace} = useCoverImage()
@@ -58,12 +54,6 @@ const Cover = ({
         />
       )}
 
-      {/* {(isChanging || isRemoving) && (
-        <div className="absolute inset-y-0 flex justify-center items-center w-full h-full bg-background/80 z-50">
-          <Spinner />
-        </div>
-      )} */}
-
       {url && !preview && (
         <div className="absolute right-4 bottom-4 flex items-center gap-x-2 opacity-0 group-hover:opacity-100">
           <Button
@@ -92,7 +82,7 @@ const Cover = ({
   )
 }
 
-Cover.skeleton = function CoverSkeleton() {
+Cover.Skeleton = function CoverSkeleton() {
   return (
     <Skeleton className="w-full h-[12vh]" />
   )

@@ -10,13 +10,13 @@ import Toolbar from '@/components/toolbar'
 import Cover from '@/components/cover'
 import { Skeleton } from '@/components/ui/skeleton'
 
-interface DocumentDetailPageProps {
+interface DocumentPreviewPageProps {
   params: {
     documentId: Id<'documents'>
   }
 }
 
-const DocumentDetailPage = ({ params }: DocumentDetailPageProps) => {
+const DocumentPreviewPage = ({ params }: DocumentPreviewPageProps) => {
   const Editor = useMemo(() => dynamic(
     () => import('@/components/editor'),
     {ssr: false}
@@ -57,19 +57,21 @@ const DocumentDetailPage = ({ params }: DocumentDetailPageProps) => {
   }
 
   return (
-    <div className="pb-40">
-      <Cover url={document.coverImage} />
+    <div className="pb-40 dark:bg-[#1F1F1F]">
+      <Cover preview url={document.coverImage} />
 
       <div className="mx-auto md:max-w-3xl lg:max-w-4xl">
-        <Toolbar initialData={document} />
+        <Toolbar preview initialData={document} />
 
         <Editor
           onChange={handleChange}
           initialContent={document.content}
+          editable={false}
         />
       </div>
     </div>
   )
 }
 
-export default DocumentDetailPage
+export default DocumentPreviewPage
+

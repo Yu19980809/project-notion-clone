@@ -7,7 +7,7 @@ import {
   useEffect
 } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
-import { useParams, usePathname } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useMutation } from 'convex/react'
 import { toast } from 'sonner'
 import {
@@ -17,7 +17,8 @@ import {
   Search,
   Settings,
   Plus,
-  Trash
+  Trash,
+  Router
 } from 'lucide-react'
 
 import UserItem from './user-item'
@@ -39,6 +40,7 @@ const Navigation = () => {
   const search = useSearch()
   const settings = useSettings()
   const params = useParams()
+  const router = useRouter()
   const pathname = usePathname()
   const isMobile = useMediaQuery('(max-width: 768px)')
   const create = useMutation(api.documents.create)
@@ -128,6 +130,7 @@ const Navigation = () => {
 
   const handleCreate = () => {
     const promise = create({ title: 'Untitled' })
+      .then(documentId => router.push(`/documents/${documentId}`))
 
     toast.promise(promise, {
       loading: 'Creating a new note...',

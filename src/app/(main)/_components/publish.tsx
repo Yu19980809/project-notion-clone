@@ -19,7 +19,6 @@ interface PublishProps {
   initialData: Doc<'documents'>
 }
 
-
 const Publish = ({ initialData }: PublishProps) => {
   const [copied, setCopied] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,7 +36,7 @@ const Publish = ({ initialData }: PublishProps) => {
     }, 1000)
   }
 
-  const handleUnpublish = () => {
+  const handlePublish = () => {
     setIsSubmitting(true)
 
     const promise = update({
@@ -53,7 +52,7 @@ const Publish = ({ initialData }: PublishProps) => {
     })
   }
 
-  const handlePublish = () => {
+  const handleUnpublish = () => {
     setIsSubmitting(true)
 
     const promise = update({
