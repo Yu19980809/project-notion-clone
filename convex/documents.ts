@@ -209,6 +209,7 @@ export const getById = query({
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity()
+    console.log('identity', identity)
     const document = await ctx.db.get(args.documentId)
 
     if (!document) {
@@ -221,6 +222,7 @@ export const getById = query({
 
     // Unpublished documents can only be viewed by owner
     if (!identity) {
+      console.log('Not Authenticated')
       throw new Error('Not Authenticated')
     }
 
